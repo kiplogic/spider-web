@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Spider Web</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>🕷️ Spider Web</h1>
+    <p class="sub">Masukkan URL website &rarr; link artikel &amp; judul terkumpul otomatis &rarr; simpan ke Excel</p>
+  </header>
+
+  <section class="card" id="inputCard">
+    <textarea id="inputUrls" rows="3" spellcheck="false" placeholder="https://website-1.com&#10;https://website-2.com"></textarea>
+
+    <div class="optsRow">
+      <div class="opt" title="Jumlah maksimal halaman listing yang diperiksa per website. Berhenti otomatis saat batas ini tercapai.">
+        <label>Maks halaman</label>
+        <input id="optPages" type="number" min="1" value="200" />
+      </div>
+      <div class="opt" title="Jumlah maksimal artikel yang dikumpulkan per website. Kalau hasilnya kurang dari harapan, naikkan (mis. 5000).">
+        <label>Maks artikel</label>
+        <input id="optArticles" type="number" min="1" value="3000" />
+      </div>
+      <div class="opt" title="Berapa banyak link yang diambil dalam waktu bersamaan. Lebih tinggi = lebih cepat, tapi jangan berlebihan agar website tidak keberatan. 5-10 itu aman.">
+        <label>Paralel</label>
+        <input id="optConc" type="number" min="1" max="32" value="8" />
+      </div>
+      <div class="opt" title="Jeda sebelum mengambil tiap halaman (1000 = 1 detik). Beri jeda kecil agar website tidak terbebani.">
+        <label>Jeda (ms)</label>
+        <input id="optDelay" type="number" min="0" value="150" />
+      </div>
+      <div class="spacer"></div>
+      <button id="btnStart" class="primary">Mulai</button>
+      <button id="btnStop" disabled>Berhenti</button>
+    </div>
+  </section>
+
+  <section class="card" id="progressCard" hidden>
+    <div class="progress"><div id="bar" class="bar indeterminate"></div></div>
+    <div class="statsLine">
+      <span id="statPhase">-</span>
+      <span>Halaman <b id="statPages">0</b></span>
+      <span>Ditemukan <b id="statFound">0</b></span>
+      <span>Judul <b><span id="statTitles">0</span>/<span id="statTotal">0</span></b></span>
+    </div>
+  </section>
+
+  <section class="card grow" id="workCard" hidden>
+    <div class="tabs">
+      <button class="tab active" data-tab="log">Log</button>
+      <button class="tab" data-tab="results">Hasil</button>
+      <div class="spacer"></div>
+      <span id="resultInfo" class="hint"><span id="resultCount">0 artikel</span>, <span id="resultErr">0 gagal</span></span>
+      <button id="btnExport" class="primary small" hidden>Simpan ke Excel</button>
+    </div>
+    <div id="log" class="pane"></div>
+    <div id="resultsPane" class="pane" hidden>
+      <div class="tableWrap">
+        <table id="resultTable">
+          <thead><tr><th>No</th><th>Tanggal</th><th>URL</th><th>Kategori</th><th>Keyword</th><th>Judul</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <details class="errBox" id="errBox" hidden>
+        <summary>Tampilkan error (<span id="errCountInline">0</span>)</summary>
+        <div class="tableWrap errTable">
+          <table>
+            <thead><tr><th>No</th><th>URL</th><th>Error</th></tr></thead>
+            <tbody id="errTableBody"></tbody>
+          </table>
+        </div>
+      </details>
+      <p class="hint" id="previewNote"></p>
+    </div>
+  </section>
+
+  <div id="toast" hidden></div>
+</div>
+<script src="main.js"></script>
+</body>
+</html>

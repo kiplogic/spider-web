@@ -1,0 +1,4 @@
+# Build artifacts
+spider-web
+spider-web.exe
+*.log
