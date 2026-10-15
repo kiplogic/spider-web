@@ -40,26 +40,24 @@ request pertama membangunkan (±30 detik), lalu normal.
 **Railway / Fly.io:** cara mirip — hubungkan repo GitHub, pilih Dockerfile,
 deploy. Keduanya punya free tier.
 
-## Opsi B2 — Hugging Face Spaces (gratis, TANPA kartu kredit)
+## Opsi B2 — Koyeb (dilaporkan gratis, status kartu simpang siur)
 
-Alternatif cloud tanpa perlu isi kartu sama sekali.
+Beberapa sumber menyebut free tier Koyeb (Docker, 1 service) tanpa kartu
+kredit; satu perbandingan terbaru menyebut ada hold $29 saat signup.
+Layak dicoba — jika diminta kartu, lewati saja.
 
-1. Daftar/login di huggingface.co → **New Space** → nama mis. `spider-web`,
-   SDK pilih **Docker**, visibility **Public** → Create Space.
-2. Tab **Files** → *Add file → Upload files* → upload semua file project
-   (ambil dari https://github.com/kiplogic/spider-web → *Code → Download ZIP*,
-   atau dari `spider-web-src.zip`): `server.go`, `crawler.go`, `excel.go`,
-   `types.go`, `go.mod`, `go.sum`, `Dockerfile`, dan folder `ui/`
-   (`index.html`, `main.js`, `style.css`).
-3. Tab **Settings** → *Variables and secrets* → *New variable* →
-   Name: `PORT`, Value: `7860` → Save. (Space Docker wajib listen di port 7860;
-   aplikasi membaca env `PORT` jadi cukup diset di sini, Dockerfile tidak
-   perlu diubah.)
-4. Space otomatis build (±3 menit) → dapat URL
-   `https://<username>-spider-web.hf.space`. URL ini yang dishare.
+1. Daftar di koyeb.com (bisa pakai GitHub) → **Create App** → **GitHub** →
+   pilih repo `spider-web`.
+2. Builder: **Dockerfile**, Instance: **Free**, Port: biarkan default
+   (Koyeb menyuntik `PORT` otomatis seperti Render).
+3. Deploy → dapat URL `https://<nama>-<org>.koyeb.app`.
 
-Catatan: Space gratis "tidur" setelah 48 jam tidak dipakai, bangun otomatis
-saat dibuka kembali.
+## Opsi B3 — Hugging Face Spaces
+
+CATATAN (2026-10-16): halaman HF saat ini menyatakan Gradio dan Docker
+Spaces **membutuhkan paket PRO (berbayar)** — opsi gratisnya tinggal Static
+Spaces yang tidak bisa menjalankan backend Spider. Opsi ini tidak lagi
+disarankan kecuali Anda sudah berlangganan PRO.
 
 ## Opsi C — VPS sendiri
 
