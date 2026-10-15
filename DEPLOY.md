@@ -40,6 +40,27 @@ request pertama membangunkan (±30 detik), lalu normal.
 **Railway / Fly.io:** cara mirip — hubungkan repo GitHub, pilih Dockerfile,
 deploy. Keduanya punya free tier.
 
+## Opsi B2 — Hugging Face Spaces (gratis, TANPA kartu kredit)
+
+Alternatif cloud tanpa perlu isi kartu sama sekali.
+
+1. Daftar/login di huggingface.co → **New Space** → nama mis. `spider-web`,
+   SDK pilih **Docker**, visibility **Public** → Create Space.
+2. Tab **Files** → *Add file → Upload files* → upload semua file project
+   (ambil dari https://github.com/kiplogic/spider-web → *Code → Download ZIP*,
+   atau dari `spider-web-src.zip`): `server.go`, `crawler.go`, `excel.go`,
+   `types.go`, `go.mod`, `go.sum`, `Dockerfile`, dan folder `ui/`
+   (`index.html`, `main.js`, `style.css`).
+3. Tab **Settings** → *Variables and secrets* → *New variable* →
+   Name: `PORT`, Value: `7860` → Save. (Space Docker wajib listen di port 7860;
+   aplikasi membaca env `PORT` jadi cukup diset di sini, Dockerfile tidak
+   perlu diubah.)
+4. Space otomatis build (±3 menit) → dapat URL
+   `https://<username>-spider-web.hf.space`. URL ini yang dishare.
+
+Catatan: Space gratis "tidur" setelah 48 jam tidak dipakai, bangun otomatis
+saat dibuka kembali.
+
 ## Opsi C — VPS sendiri
 
 1. Copy binary Linux ke VPS: `go build -o spider-web .` di Linux,
